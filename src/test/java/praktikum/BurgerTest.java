@@ -10,6 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,6 +21,8 @@ public class BurgerTest {
     Burger burger;
     @Mock
     Ingredient ingredient;
+    @Mock
+    Ingredient ingredient2;
     @Mock
     Ingredient cheese;
     @Mock
@@ -57,13 +61,11 @@ public class BurgerTest {
     @Test
     public void moveIngredientTest() {
 
-        int index = 1;
-        int newIndex = 2;
-
-        burger.ingredients = ingredients;
-        burger.moveIngredient(index, newIndex);
-        Mockito.verify(burger.ingredients).add(newIndex, ingredients.remove(index));
-        Mockito.verify(burger.ingredients).remove(index);
+            Burger burger = new Burger();
+            burger.ingredients.add(ingredient);
+            burger.ingredients.add(ingredient2);
+            burger.moveIngredient(0, 1);
+            assertThat("Метод moveIngredient неверно перемещает элементы в ArrayList-е", burger.ingredients.get(0), equalTo(ingredient2));
     }
 
     @Test
