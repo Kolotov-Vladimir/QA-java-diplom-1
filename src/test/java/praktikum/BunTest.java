@@ -1,22 +1,43 @@
 package praktikum;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.assertEquals;
-
+@RunWith(Parameterized.class)
 public class BunTest {
+    private Bun bun;
+    private final String nameExpected;
+    private final float priceExpected;
 
-    public float price = 10.5F;
-    private String name = "Testname";
-    Bun bun = new Bun(name, price);
+    public BunTest(String nameExpected, float priceExpected) {
+        this.nameExpected = nameExpected;
+        this.priceExpected = priceExpected;
+    }
 
-    @Test
-    public void getNameTest() {
-        assertEquals(name, bun.getName());
+    @Parameterized.Parameters
+    public static Object[][] getKittensCountData() {
+        return new Object[][]{
+                {"cutlet", 45.3f},
+                {"minced meat", 0f},
+                {"test", 90.3f},
+                {"123", 345.5f},
+                {"sdf435FEF", 1f},
+                {"0", 2222222222220f},
+                {null, 0f},
+                {"", 1f},
+                {null, -11155f},
+                {"!№;%:%?%:?((", -1f},
+        };
     }
 
     @Test
-    public void getPriceTest() {
-        assertEquals(price, bun.getPrice(), 0.0);
+    public void createABunSetAndGetCheckPositive() {
+        bun = new Bun(nameExpected, priceExpected);
+        String nameActual = bun.getName();
+        float priceActual = bun.getPrice();
+        Assert.assertEquals(nameExpected, nameActual);
+        Assert.assertTrue(priceActual == priceExpected);
     }
 }

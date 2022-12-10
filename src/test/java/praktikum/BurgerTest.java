@@ -49,10 +49,9 @@ public class BurgerTest {
 
     @Test
     public void removeIngredientTest() {
-        Mockito.when(ingredients.remove(1)).thenReturn(ingredient);
-        burger.ingredients = ingredients;
-        burger.removeIngredient(1);
-        Mockito.verify(burger.ingredients).remove(1);
+        burger.addIngredient(ingredient);
+        burger.removeIngredient(0);
+        Assert.assertTrue(burger.ingredients.isEmpty());
     }
 
     @Test
